@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ravn Labs — Product Mindset Framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-muted: #f3f4f6;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --purple-bg: #f5f3ff;
+    --purple-border: #c4b5fd;
+    --teal-bg: #f0fdf9;
+    --teal-text: #0f766e;
+    --amber-bg: #fffbeb;
+    --amber-text: #92400e;
+    --blue-bg: #eff6ff;
+    --blue-border: #bfdbfe;
+    --blue-text: #1d4ed8;
+    --green-bg: #f0fdf4;
+    --green-text: #15803d;
+    --font: 'Geist', system-ui, -apple-system, sans-serif;
+    --mono: 'Geist Mono', monospace;
+    --radius-sm: 6px;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 2.5rem 1rem;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem 2rem 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .doc-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    background: var(--bg-muted);
+  }
+
+  .header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin-bottom: 0.625rem;
+    letter-spacing: -0.025em;
+  }
+
+  .header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 620px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    padding-left: 2px;
+  }
+
+  .intro-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid #7c3aed;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .intro-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 0.875rem;
+  }
+
+  .intro-card p:last-child { margin-bottom: 0; }
+  .intro-card strong { color: var(--text-primary); font-weight: 500; }
+
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .principle-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .principle-card.featured {
+    border-color: var(--purple-border);
+    background: var(--purple-bg);
+  }
+
+  .principle-card.teal {
+    border-color: #99f6e4;
+    background: var(--teal-bg);
+  }
+
+  .principle-card.amber {
+    border-color: var(--amber-border);
+    background: var(--amber-bg);
+  }
+
+  .p-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .p-icon.purple { background: #ede9fe; }
+  .p-icon.gray { background: var(--bg-muted); }
+  .p-icon.teal { background: #ccfbf1; }
+  .p-icon.amber { background: #fef3c7; }
+
+  .principle-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .principle-card p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .phases { margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 8px; }
+
+  .phase {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+
+  .phase:hover { border-color: var(--border-strong); }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .phase-num {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+    font-family: var(--mono);
+  }
+
+  .phase-meta { flex: 1; }
+
+  .phase-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .phase-tagline {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .chevron {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .phase-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .phase-body.open { max-height: 1000px; }
+
+  .phase-inner {
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .steps { list-style: none; margin: 1rem 0; }
+
+  .steps li {
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--bg-muted);
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .steps li:last-child { border-bottom: none; }
+
+  .step-marker {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .roles {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .role {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .role.dev { background: var(--blue-bg); color: var(--blue-text); border-color: var(--blue-border); }
+  .role.design { background: #fdf2f8; color: #9d174d; border-color: #fbcfe8; }
+  .role.both { background: var(--bg-muted); color: var(--text-secondary); border-color: var(--border); }
+
+  .tools-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 0.5rem; }
+
+  .tools-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.75rem;
+  }
+
+  .tool {
+    font-size: 11px;
+    font-family: var(--mono);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-muted);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+
+  .artifact-note {
+    background: #fafaf9;
+    border: 1px solid #e7e5e4;
+    border-left: 3px solid #a78bfa;
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    font-size: 12px;
+    color: #57534e;
+    margin-top: 1rem;
+    line-height: 1.65;
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+  }
+
+  .artifact-note strong { color: #292524; font-weight: 500; }
+  .artifact-icon { width: 14px; height: 14px; margin-top: 1px; flex-shrink: 0; }
+
+  .ph1 .phase-num { background: #f5f3ff; color: #5b21b6; }
+  .ph1 .step-marker { background: #7c3aed; }
+  .ph2 .phase-num { background: var(--teal-bg); color: var(--teal-text); }
+  .ph2 .step-marker { background: #0d9488; }
+  .ph3 .phase-num { background: var(--amber-bg); color: var(--amber-text); }
+  .ph3 .step-marker { background: #d97706; }
+  .ph4 .phase-num { background: var(--blue-bg); color: var(--blue-text); }
+  .ph4 .step-marker { background: #2563eb; }
+  .ph5 .phase-num { background: var(--green-bg); color: var(--green-text); }
+  .ph5 .step-marker { background: #16a34a; }
+
+  .success-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 0.75rem;
+  }
+
+  .success-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .success-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .success-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .success-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .sep { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="doc-badge">Ravn Labs &mdash; Internal Proposal</div>
+    <h1>Product mindset framework for dev + design teams</h1>
+    <p>A practical, phased plan for embedding product ownership, discovery skills, and AI-augmented workflows into every Labs sprint &mdash; whether your starting point is a Figma file or a PRD in AgentOS.</p>
+  </div>
+
+  <div class="section-label">Introduction</div>
+  <div class="intro-card">
+    <p>Ravn Labs was created to push engineers and designers beyond execution &mdash; toward <strong>product ownership, critical thinking, and the ability to grow and adapt</strong> as AI-assisted development reshapes what clients expect from a technology partner.</p>
+    <p>Each Labs sprint is a sandbox to test new tools, challenge assumptions, and build the habit of understanding a problem before solving it. The first hackathon cycle made clear that this mindset &mdash; <strong>asking the right questions, validating before building, and delivering work others can immediately act on</strong> &mdash; is a skill that needs to be developed deliberately, not assumed.</p>
+    <p>This plan gives every Labs team a shared foundation: a way of working that applies from the first read of a PRD to the final demo, and compounds in value with every cycle.</p>
+  </div>
+
+  <div class="section-label">Core principles</div>
+  <div class="principles-grid">
+    <div class="principle-card featured">
+      <div class="p-icon purple">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="13" height="13" rx="2" stroke="#6d28d9" stroke-width="1.25"/><path d="M4 7.5h7M4 5h7M4 10h4" stroke="#6d28d9" stroke-width="1.25" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Design that speaks to everyone</h3>
+      <p>Designers gather requirements first, then produce workflows, mocks, and specs that are immediately legible &mdash; to developers, stakeholders, and clients alike. No guesswork required.</p>
+    </div>
+    <div class="principle-card teal">
+      <div class="p-icon teal">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6" stroke="#0f766e" stroke-width="1.25"/><path d="M7.5 4.5v3l2 1.5" stroke="#0f766e" stroke-width="1.25" stroke-linecap="round"/></svg>
+      </div>
+      <h3>Owners are the dev's client</h3>
+      <p>Developers must ask discovery questions, validate assumptions, and own problem understanding &mdash; not just tickets. The stakeholder's problem is the team's responsibility to solve.</p>
+    </div>
+    <div class="principle-card amber">
+      <div class="p-icon amber">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1L14 13H1L7.5 1Z" stroke="#92400e" stroke-width="1.25" stroke-linejoin="round"/><path d="M7.5 6v3M7.5 11v.5" stroke="#92400e" stroke-width="1.25" stroke-linecap="round"/></svg>
+      </div>
+      <h3>AI is the accelerant</h3>
+      <p>AgentOS, BMAD, and Claude Code compress execution &mdash; but judgment and product thinking stay human.</p>
+    </div>
+  </div>
+
+  <div class="section-label">5-phase plan</div>
+  <div class="phases">
+
+    <div class="phase ph1">
+      <div class="phase-header" onclick="toggle(this)">
+        <div class="phase-num">01</div>
+        <div class="phase-meta">
+          <div class="phase-name">Read the PRD like a product owner</div>
+          <div class="phase-tagline">Before writing a single line of code or design</div>
+        </div>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="phase-body">
+        <div class="phase-inner">
+          <ul class="steps">
+            <li><span class="step-marker"></span><span>Read the full PRD and list every assumption the team is making &mdash; even obvious ones. Flag anything that feels ambiguous or contradictory.</span></li>
+            <li><span class="step-marker"></span><span>Write 3&ndash;5 discovery questions to bring to the product owner or stakeholder. Make them direct and specific, not vague.</span></li>
+            <li><span class="step-marker"></span><span>Use AgentOS or BMAD to ingest the PRD and generate an initial task breakdown. Treat this output as a draft, not a contract &mdash; apply judgment on priority and scope.</span></li>
+            <li><span class="step-marker"></span><span>If the PRD doesn't make sense or a better solution exists, document why and open the conversation with the product owner before pivoting. Don't change direction silently.</span></li>
+          </ul>
+          <div class="roles">
+            <span class="role dev">Devs</span>
+            <span class="role design">Designers</span>
+          </div>
+          <div class="tools-label">AI tools</div>
+          <div class="tools-row">
+            <span class="tool">AgentOS</span>
+            <span class="tool">BMAD</span>
+            <span class="tool">Claude Code</span>
+          </div>
+          <div class="artifact-note">
+            <svg class="artifact-icon" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l3 3v9H4V2z" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M10 2v3h3" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M6 8h4M6 10.5h2.5" stroke="#7c3aed" stroke-width="1.25" stroke-linecap="round"/></svg>
+            <span><strong>Artifact:</strong> A PRD annotation document listing assumptions, open questions, and the proposed task breakdown. This becomes the team's shared starting point and reference throughout the sprint.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase ph2">
+      <div class="phase-header" onclick="toggle(this)">
+        <div class="phase-num">02</div>
+        <div class="phase-meta">
+          <div class="phase-name">Run a structured discovery session</div>
+          <div class="phase-tagline">Before designing or building anything substantive</div>
+        </div>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="phase-body">
+        <div class="phase-inner">
+          <ul class="steps">
+            <li><span class="step-marker"></span><span>Schedule a short sync with the product owner or stakeholder. Come with the assumption list from phase 01 &mdash; not a blank slate.</span></li>
+            <li><span class="step-marker"></span><span>Ask direct, closed questions first to validate assumptions: &ldquo;Is it correct that users self-select their tools from a company list?&rdquo; Then use open questions to go deeper.</span></li>
+            <li><span class="step-marker"></span><span>Identify the primary user, their real pain point, and what &ldquo;done&rdquo; looks like. Write this in one sentence and confirm it with the owner before the call ends.</span></li>
+            <li><span class="step-marker"></span><span>Record or log the session and use Claude to extract key decisions, open questions, and confirmed next steps as structured notes.</span></li>
+          </ul>
+          <div class="roles">
+            <span class="role dev">Devs</span>
+            <span class="role design">Designers</span>
+            <span class="role both">Project lead</span>
+          </div>
+          <div class="artifact-note">
+            <svg class="artifact-icon" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l3 3v9H4V2z" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M10 2v3h3" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M6 8h4M6 10.5h2.5" stroke="#7c3aed" stroke-width="1.25" stroke-linecap="round"/></svg>
+            <span><strong>Artifact:</strong> A discovery notes document with confirmed assumptions, key decisions, and the agreed problem statement. Share it with the product owner to validate alignment before work begins.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase ph3">
+      <div class="phase-header" onclick="toggle(this)">
+        <div class="phase-num">03</div>
+        <div class="phase-meta">
+          <div class="phase-name">Design with stakeholders in mind</div>
+          <div class="phase-tagline">Requirements to legible workflows, mocks, and handoffs</div>
+        </div>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="phase-body">
+        <div class="phase-inner">
+          <ul class="steps">
+            <li><span class="step-marker"></span><span>Translate confirmed requirements into workflows and mockups that any stakeholder can read without explanation &mdash; product owners, developers, and clients all need to understand what is being built and why.</span></li>
+            <li><span class="step-marker"></span><span>The developer is the designer's most immediate stakeholder. Every design decision should make the developer's job clearer: what to build, what is reusable, and what the expected outcome looks like must be unambiguous.</span></li>
+            <li><span class="step-marker"></span><span>Organize Figma files by phase or feature. Templates should use swappable component slots &mdash; show layout and structure, not finished screens. New phases get new files that import shared components.</span></li>
+            <li><span class="step-marker"></span><span>Create a dedicated dev handoff section with explicit annotations: what is new, what is reused, and current build status. Use a simple checkbox system so developers always know where things stand.</span></li>
+            <li><span class="step-marker"></span><span>For rapid prototyping, use Claude Code or Stitch with ShadCN defaults. The priority is UX and data flow &mdash; visual polish comes later. Share working prototypes with developers early and iterate together.</span></li>
+            <li><span class="step-marker"></span><span>Check in with developers regularly. Ask directly: are these designs clear? Is anything ambiguous? Collect that feedback and feed it back into the next design iteration.</span></li>
+          </ul>
+          <div class="roles">
+            <span class="role design">Designers primarily</span>
+            <span class="role dev">Devs review</span>
+          </div>
+          <div class="tools-label">Tools</div>
+          <div class="tools-row">
+            <span class="tool">Figma</span>
+            <span class="tool">Claude Code</span>
+            <span class="tool">Stitch</span>
+            <span class="tool">ShadCN</span>
+          </div>
+          <div class="artifact-note">
+            <svg class="artifact-icon" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l3 3v9H4V2z" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M10 2v3h3" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M6 8h4M6 10.5h2.5" stroke="#7c3aed" stroke-width="1.25" stroke-linecap="round"/></svg>
+            <span><strong>Artifact:</strong> A versioned Figma handoff file with annotated layouts, component status, and a changelog of design decisions. Each update should be traceable back to a confirmed requirement or stakeholder decision.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase ph4">
+      <div class="phase-header" onclick="toggle(this)">
+        <div class="phase-num">04</div>
+        <div class="phase-meta">
+          <div class="phase-name">Build with AI &mdash; and enforce shared components</div>
+          <div class="phase-tagline">Claude Code, AgentOS, and component discipline</div>
+        </div>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="phase-body">
+        <div class="phase-inner">
+          <ul class="steps">
+            <li><span class="step-marker"></span><span>Use AgentOS task files or BMAD to structure the sprint. Treat AI-generated task lists as a starting point &mdash; apply judgment on priority, dependencies, and scope against the agreed PRD.</span></li>
+            <li><span class="step-marker"></span><span>When Claude Code generates UI, explicitly instruct it on shared components: &ldquo;We already have a card component &mdash; reuse it, don't create a new one.&rdquo; AI will always generate new components unless told otherwise.</span></li>
+            <li><span class="step-marker"></span><span>Devs and designers run regular component audits: are UI elements consistent? Are new components being introduced without reason? This is a shared responsibility, not just a dev concern.</span></li>
+            <li><span class="step-marker"></span><span>Every feature branch maps to a specific section in the Figma handoff file. Developers mark what has been implemented; designers update component status accordingly.</span></li>
+          </ul>
+          <div class="roles">
+            <span class="role dev">Devs primarily</span>
+            <span class="role design">Designers review</span>
+          </div>
+          <div class="tools-label">AI tools</div>
+          <div class="tools-row">
+            <span class="tool">AgentOS</span>
+            <span class="tool">Claude Code</span>
+            <span class="tool">BMAD</span>
+          </div>
+          <div class="artifact-note">
+            <svg class="artifact-icon" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l3 3v9H4V2z" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M10 2v3h3" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M6 8h4M6 10.5h2.5" stroke="#7c3aed" stroke-width="1.25" stroke-linecap="round"/></svg>
+            <span><strong>Artifact:</strong> An up-to-date roadmap and task breakdown file maintained throughout the sprint. Document decisions, scope changes, and implementation notes so the project state is always legible &mdash; to the whole team and to anyone who picks it up later.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase ph5">
+      <div class="phase-header" onclick="toggle(this)">
+        <div class="phase-num">05</div>
+        <div class="phase-meta">
+          <div class="phase-name">Demo, retro, and carry learnings forward</div>
+          <div class="phase-tagline">End of sprint &mdash; the red/green light moment</div>
+        </div>
+        <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="phase-body">
+        <div class="phase-inner">
+          <ul class="steps">
+            <li><span class="step-marker"></span><span>The demo is a presentation of a working product &mdash; not a status update. Teams should aim to have a functional, demonstrable product by the end of the sprint. This is exactly why understanding the PRD, validating assumptions early, and managing scope from day one are not optional: they are what make a complete demo possible.</span></li>
+            <li><span class="step-marker"></span><span>If the product is not fully complete, the demo should still show real, working functionality &mdash; not slides or descriptions of what was intended to be built. Partial working features communicate far more than a walkthrough of what didn't get done.</span></li>
+            <li><span class="step-marker"></span><span>Come to the retro with 3 specific things learned &mdash; not vague reflections. Share what AI tools were used, what worked, and what didn't. These insights are what the Labs program compounds over time.</span></li>
+            <li><span class="step-marker"></span><span>If the project is red-lit, leave it in a clear state: update the roadmap file, document where the team ended, and note the recommended next step. There is a real chance this project gets picked up again.</span></li>
+            <li><span class="step-marker"></span><span>If green-lit, the team writes a round-2 scope document &mdash; revisiting the PRD with what is now known &mdash; before continuing development. Don't carry unresolved assumptions into the next cycle.</span></li>
+            <li><span class="step-marker"></span><span>The project lead collects dev and designer feedback on handoff clarity and shares it as a team improvement note. Every cycle should make the next one sharper.</span></li>
+          </ul>
+          <div class="roles">
+            <span class="role both">Whole team</span>
+          </div>
+          <div class="artifact-note">
+            <svg class="artifact-icon" viewBox="0 0 16 16" fill="none"><path d="M4 2h6l3 3v9H4V2z" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M10 2v3h3" stroke="#7c3aed" stroke-width="1.25" stroke-linejoin="round"/><path d="M6 8h4M6 10.5h2.5" stroke="#7c3aed" stroke-width="1.25" stroke-linecap="round"/></svg>
+            <span><strong>Artifact:</strong> A sprint summary document with what was built, what was learned, key decisions made, and the recommended next step. This is the handoff to the next cycle &mdash; whether the project continues or not.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="sep">
+  <div class="section-label">What success looks like</div>
+  <div class="success-grid">
+    <div class="success-card">
+      <div class="success-label">For designers</div>
+      <div class="success-value">Zero ambiguity</div>
+      <div class="success-sub">Developers open Figma and immediately know what to build, what is reused, and what is done</div>
+    </div>
+    <div class="success-card">
+      <div class="success-label">For developers</div>
+      <div class="success-value">Zero assumption debt</div>
+      <div class="success-sub">Every sprint starts with confirmed problem understanding &mdash; not just a ticket queue</div>
+    </div>
+    <div class="success-card">
+      <div class="success-label">For AI tooling</div>
+      <div class="success-value">Governed output</div>
+      <div class="success-sub">Claude Code and AgentOS accelerate work without creating component chaos or scope drift</div>
+    </div>
+    <div class="success-card">
+      <div class="success-label">For Ravn Labs</div>
+      <div class="success-value">Compounding skill</div>
+      <div class="success-sub">Each cycle makes the team faster at discovery, clearer at handoff, and bolder at product thinking</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.chevron');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.phase-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.chevron').forEach(c => c.style.transform = '');
+  if (!isOpen) {
+    body.classList.add('open');
+    chevron.style.transform = 'rotate(180deg)';
+  }
+}
+</script>
+</body>
+</html>
